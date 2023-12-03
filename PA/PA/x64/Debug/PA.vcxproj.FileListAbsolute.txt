@@ -1,0 +1,4 @@
+C:\Users\Usuario\source\repos\PA\PA\x64\Debug\PA.vcxproj.AssemblyReference.cache
+C:\Users\Usuario\source\repos\PA\PA\x64\Debug\PA.vcxproj.GenerateResource.cache
+C:\Users\Usuario\source\repos\PA\PA\x64\Debug\PA.Login.resources
+C:\Users\Usuario\source\repos\PA\PA\x64\Debug\PA.Telas.resources
