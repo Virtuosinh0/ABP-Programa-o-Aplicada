@@ -1,4 +1,15 @@
 #pragma once
+#include "EntradaProduto.h"
+#include "CadastroProduto.h"
+#include "MostraEstoque.h"
+#include "LeProduto.h"
+#include <iostream>
+#include <msclr/marshal_cppstd.h>
+#include <vcclr.h>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
 
 namespace PA {
 
@@ -38,6 +49,12 @@ namespace PA {
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Label^ label4;
+
+
+
+
+
+
 	protected:
 
 	private:
@@ -82,20 +99,21 @@ namespace PA {
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(88, 125);
+			this->label3->Location = System::Drawing::Point(91, 136);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(74, 13);
+			this->label3->Size = System::Drawing::Size(35, 13);
 			this->label3->TabIndex = 2;
-			this->label3->Text = L"Exibir Estoque";
+			this->label3->Text = L"Mostra Estoque";
+			this->label3->Click += gcnew System::EventHandler(this, &Telas::label3_Click);
 			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(88, 164);
+			this->label4->Location = System::Drawing::Point(91, 179);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(38, 13);
+			this->label4->Size = System::Drawing::Size(35, 13);
 			this->label4->TabIndex = 3;
-			this->label4->Text = L"Venda";
+			this->label4->Text = L"Venda de produto";
 			this->label4->Click += gcnew System::EventHandler(this, &Telas::label4_Click);
 			// 
 			// Telas
@@ -107,25 +125,31 @@ namespace PA {
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
-			this->Name = L"Telas";
-			this->Text = L"Telas";
+			this->Name = L"Menu";
+			this->Text = L"Menu";
 			this->Load += gcnew System::EventHandler(this, &Telas::Telas_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-	private: System::Void Telas_Load(System::Object^ sender, System::EventArgs^ e) {
-		Telas^ tela = gcnew Telas(); // Cria uma instância da tela "Telas"
-		this->Hide(); // Esconde o formulário de login atual
-		tela->ShowDialog(); // Mostra a tela "Telas"
-		this->Close(); // Fecha o formulário de login após a tela "Telas" ser fechada
-	}
+	private: System::Void Telas_Load(System::Object^ sender, System::EventArgs^ e) {}
 	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
+		EntradaProduto^ tela = gcnew EntradaProduto();
+		tela->Show();
 	}
 	private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
+		CadastroProduto^ tela = gcnew CadastroProduto();
+		tela->Show();
+
 	}
-private: System::Void label4_Click(System::Object^ sender, System::EventArgs^ e) {
-}
+	private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {
+		MostraEstoque^ tela = gcnew MostraEstoque();
+		tela->Show();
+	}
+	private: System::Void label4_Click(System::Object^ sender, System::EventArgs^ e) {
+		LeProduto^ tela = gcnew LeProduto();
+		tela->Show(); 
+	}
 };
 }

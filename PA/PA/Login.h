@@ -3,10 +3,15 @@
 #include <msclr/marshal_cppstd.h>
 #include <vcclr.h>
 #include "Telas.h"
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
 
 using namespace System;
 using namespace System::IO;
 
+const std::string kUsersFile = "Users.csv";
 
 namespace PA {
 
@@ -26,15 +31,9 @@ namespace PA {
 		Login(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Adicione o código do construtor aqui
-			//
 		}
 
 	protected:
-		/// <summary>
-		/// Limpar os recursos que estão sendo usados.
-		/// </summary>
 		~Login()
 		{
 			if (components)
@@ -51,16 +50,10 @@ namespace PA {
 	protected:
 
 	private:
-		/// <summary>
-		/// Variável de designer necessária.
-		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Método necessário para suporte ao Designer - não modifique 
-		/// o conteúdo deste método com o editor de código.
-		/// </summary>
+
 		void InitializeComponent(void)
 		{
 			this->button1 = (gcnew System::Windows::Forms::Button());
@@ -124,6 +117,7 @@ namespace PA {
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(125, 20);
 			this->textBox2->TabIndex = 5;
+			this->textBox2->TextChanged += gcnew System::EventHandler(this, &Login::textBox2_TextChanged);
 			// 
 			// Login
 			// 
@@ -145,87 +139,107 @@ namespace PA {
 		}
 #pragma endregion
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (isLoggedIn()) {
-			MessageBox::Show("Login bem-sucedido!"); // Mostra uma mensagem de login bem-sucedido
+		// Código para realizar o login
+		std::string username = msclr::interop::marshal_as<std::string>(textBox1->Text);
+		std::string password = msclr::interop::marshal_as<std::string>(textBox2->Text);
 
-			// Abre a tela "Telas" após o login bem-sucedido
-			Telas^ tela = gcnew Telas(); // Cria uma instância da tela "Telas"
-			this->Hide(); // Esconde o formulário de login atual
-			tela->ShowDialog(); // Mostra a tela "Telas"
-			this->Close(); // Fecha o formulário de login após a tela "Telas" ser fechada
+		if (LoginUser(username, password)) {
+			MessageBox::Show("Login bem-sucedido!");
+			OpenMenu();
 		}
 		else {
-			MessageBox::Show("Credenciais inválidas. Tente novamente."); // Mostra uma mensagem de credenciais inválidas
+			MessageBox::Show("Credenciais inválidas. Tente novamente.");
 		}
 	}
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ username = textBox1->Text;
-		String^ password = textBox2->Text;
+		// Código para criar um novo usuário
+		std::string username = msclr::interop::marshal_as<std::string>(textBox1->Text);
+		std::string password = msclr::interop::marshal_as<std::string>(textBox2->Text);
 
-		// Verifica se os campos de entrada não estão vazios
-		if (String::IsNullOrEmpty(username) || String::IsNullOrEmpty(password)) {
-			MessageBox::Show("Por favor, preencha todos os campos.");
+		if (UserExists(username)) {
+			MessageBox::Show("Usuário já cadastrado. Use um nome de usuário diferente.");
 			return;
 		}
 
-		try {
-			// Verifica se o arquivo de usuário já existe (se já está cadastrado)
-			if (File::Exists(username + ".txt")) {
-				MessageBox::Show("Usuário já cadastrado. Use um nome de usuário diferente.");
-				return;
-			}
+		std::ofstream file(kUsersFile, std::ios_base::app);
+		file << username << "," << password << std::endl;
+		file.close();
 
-			// Cria um arquivo de texto com o nome do usuário e grava as credenciais
-			StreamWriter^ sw = File::CreateText(username + ".txt");
-			sw->WriteLine(username);
-			sw->WriteLine(password);
-			sw->Close();
-
-			MessageBox::Show("Cadastro realizado com sucesso!");
-		}
-		catch (IOException^ e) {
-			MessageBox::Show("Erro ao criar o arquivo de cadastro: " + e->Message);
-		}
+		MessageBox::Show("Cadastro realizado com sucesso!");
 	}
+	
 	bool isLoggedIn() {
- 	   String^ username = textBox1->Text;
- 	   String^ password = textBox2->Text;
- 
- 	   // Verifica se os campos de entrada não estão vazios
- 	   if (String::IsNullOrEmpty(username) || String::IsNullOrEmpty(password)) {
- 		   MessageBox::Show("Por favor, preencha todos os campos.");
- 		   return false;
- 	   }
- 
- 	   try {
- 		   StreamReader^ sr = gcnew StreamReader(username + ".txt");
- 		   String^ fileUsername = sr->ReadLine();
- 		   String^ filePassword = sr->ReadLine();
- 		   sr->Close();
- 
- 		   if (fileUsername == username && filePassword == password) {
- 			   return true;
- 		   }
- 		   else {
- 			   MessageBox::Show("Credenciais inválidas. Tente novamente.");
- 			   return false;
- 		   }
- 	   }
- 	   catch (FileNotFoundException^) {
- 		   MessageBox::Show("Arquivo de credenciais não encontrado.");
- 		   return false;
- 	   }
- 	   catch (IOException^ e) {
- 		   MessageBox::Show("Erro ao acessar o arquivo de credenciais: " + e->Message);
- 		   return false;
- 	   }
-    }
-	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-	private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
-}
+	   String^ username = textBox1->Text;
+	   String^ password = textBox2->Text;
 
+	   // Verifica se os campos de entrada não estão vazios
+	   if (String::IsNullOrEmpty(username) || String::IsNullOrEmpty(password)) {
+		   MessageBox::Show("Por favor, preencha todos os campos.");
+		   return false;
+	   }
+
+	   try {
+		   StreamReader^ sr = gcnew StreamReader(username + ".txt");
+		   String^ fileUsername = sr->ReadLine();
+		   String^ filePassword = sr->ReadLine();
+		   sr->Close();
+
+		   if (fileUsername == username && filePassword == password) {
+			   return true;
+		   }
+		   else {
+			   MessageBox::Show("Credenciais inválidas. Tente novamente.");
+			   return false;
+		   }
+	   }
+	   catch (FileNotFoundException^) {
+		   MessageBox::Show("Arquivo de credenciais não encontrado.");
+		   return false;
+	   }
+	   catch (IOException^ e) {
+		   MessageBox::Show("Erro ao acessar o arquivo de credenciais: " + e->Message);
+		   return false;
+	   }
+	}
+	bool UserExists(const std::string& username) {
+		std::ifstream file(kUsersFile);
+		std::string line;
+		while (std::getline(file, line)) {
+			std::istringstream iss(line);
+			std::string user;
+			std::getline(iss, user, ',');
+			if (user == username) {
+				return true;
+			}
+		}
+		return false;
+	}
+	bool LoginUser(const std::string& username, const std::string& password) {
+		std::ifstream file(kUsersFile);
+		std::string line;
+		while (std::getline(file, line)) {
+			std::istringstream iss(line);
+			std::string user, pass;
+			std::getline(iss, user, ',');
+			std::getline(iss, pass, ',');
+			if (user == username && pass == password) {
+				return true;
+			}
+		}
+		return false;
+	}
+	void OpenMenu() {
+		Telas^ tela = gcnew Telas();
+		this->Hide();
+		tela->ShowDialog();
+		this->Close();
+	}
+	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {}
+	private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {}
+	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		this->textBox2->PasswordChar = '*';
+		this->textBox2->UseSystemPasswordChar = true;
+	}
+	private: System::Void textBox2_TextChanged(System::Object^ sender, System::EventArgs^ e) {}
 };
 }

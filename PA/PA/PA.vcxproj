@@ -126,13 +126,37 @@
     <ClInclude Include="Login.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="EntradaProduto.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="CadastroProduto.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="MostraEstoque.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="LeProduto.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Telas.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CadastroProduto.resx">
+      <DependentUpon>CadastroProduto.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntradaProduto.resx">
+      <DependentUpon>EntradaProduto.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LeProduto.resx">
+      <DependentUpon>LeProduto.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MostraEstoque.resx">
+      <DependentUpon>MostraEstoque.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Telas.resx">
       <DependentUpon>Telas.h</DependentUpon>
