@@ -6,3 +6,4 @@ C:\Users\Usuario\source\repos\PA\PA\x64\Debug\PA.EntradaProduto.resources
 C:\Users\Usuario\source\repos\PA\PA\x64\Debug\PA.CadastroProduto.resources
 C:\Users\Usuario\source\repos\PA\PA\x64\Debug\PA.LeProduto.resources
 C:\Users\Usuario\source\repos\PA\PA\x64\Debug\PA.MostraEstoque.resources
+C:\Users\Usuario\source\repos\PA\PA\x64\Debug\PA.FinalizaCompras.resources

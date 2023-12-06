@@ -103,7 +103,7 @@ namespace PA {
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 11;
-			this->button2->Text = L"Voltar";
+			this->button2->Text = L"Fechar";
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &MostraEstoque::button2_Click);
 			// 

@@ -171,7 +171,7 @@ namespace PA {
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 9;
-			this->button2->Text = L"Cancelar";
+			this->button2->Text = L"Fechar";
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &CadastroProduto::button2_Click);
 			// 
@@ -212,6 +212,9 @@ namespace PA {
 			arquivo << item.code << "," << item.description << "," << item.quantity << "," << item.minStock << "\n";
 			arquivo.close();
 			MessageBox::Show("Produto inserido no arquivo CSV com sucesso!");
+			textBox1->Text = String::Empty;
+			textBox2->Text = String::Empty;
+			textBox3->Text = String::Empty;
 		}
 		else {
 			MessageBox::Show("Não foi possível abrir o arquivo para inserção do produto.");

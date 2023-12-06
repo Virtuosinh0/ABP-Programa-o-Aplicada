@@ -1,4 +1,5 @@
   PA.CadastroProduto.resources - Embedded, ContainedInManifestFile, 
+  PA.FinalizaCompras.resources - Embedded, ContainedInManifestFile, 
   PA.EntradaProduto.resources - Embedded, ContainedInManifestFile, 
   PA.LeProduto.resources - Embedded, ContainedInManifestFile, 
   PA.Login.resources - Embedded, ContainedInManifestFile, 
@@ -23,6 +24,9 @@ Class PA.EntradaProduto: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class PA.CadastroProduto: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class PA.FinalizaCompras: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class PA.LeProduto: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit

@@ -138,6 +138,9 @@
     <ClInclude Include="LeProduto.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="FinalizaCompras.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Telas.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -145,6 +148,9 @@
   <ItemGroup>
     <EmbeddedResource Include="CadastroProduto.resx">
       <DependentUpon>CadastroProduto.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FinalizaCompras.resx">
+      <DependentUpon>FinalizaCompras.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EntradaProduto.resx">
       <DependentUpon>EntradaProduto.h</DependentUpon>
